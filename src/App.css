@@ -1,0 +1,33 @@
+
+.app-container {
+  display: grid;
+  /* 여백:1 / Side:2 / Main:6 / Chatbot:2 / 여백:1 */
+  grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+  
+  width: 100vw;
+  height: 80vh;
+
+  /* 위아래 여백 (필요에 따라 조정) */
+  margin: 20px 0;;
+
+  /* 텍스트 중앙 정렬 (선택) */
+  text-align: center;
+
+  gap: 8px;
+
+}
+
+.side-panel {
+  grid-column: 2 / 3;
+  border: 1px solid black;
+}
+
+.main-panel {
+  grid-column: 3 / 4;
+  border: 1px solid black;
+}
+
+.chatbot-panel {
+  grid-column: 4 / 5;
+  border: 1px solid black;
+}

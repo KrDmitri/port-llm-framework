@@ -3,11 +3,12 @@ import './App.css'
 import SidePanel from './components/SidePanel'
 import MainPanel from './components/MainPanel'
 import ChatbotPanel from './components/ChatbotPanel'
+import VesselFilePanel from './components/VesselFilePanel'
+import ContainerFilePanel from './components/ContainerFilePanel'
 
 function App() {
 
   return (
-    // app-container는 웹 브라우저 가운데 정렬하고 위 아래 여백
     <div className="app-container">
       <div className="side-panel">
         <SidePanel />
@@ -20,7 +21,17 @@ function App() {
       <div className="chatbot-panel">
         <ChatbotPanel />
       </div>
+
+      {/* <div className='container'>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div> */}
+      
     </div>
+
+    
   );
 }
 

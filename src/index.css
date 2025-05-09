@@ -1,4 +1,13 @@
 
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -25,10 +34,12 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
+  display: grid;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
 }
 
 h1 {

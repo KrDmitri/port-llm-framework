@@ -2,15 +2,15 @@ import React from 'react';
 import VesselFilePanel from './VesselFilePanel';
 import ContainerFilePanel from './ContainerFilePanel';
 
-function SidePanel() {
+function SidePanel({ onVesselDataParsed, onContainerDataParsed }) {
     return (
         <div>
             <div className='vessel-file-panel'>
-                <VesselFilePanel />
+                <VesselFilePanel onFileUpload={onVesselDataParsed}/>
             </div>
 
             <div className='container-file-panel'>
-                <ContainerFilePanel />
+                <ContainerFilePanel onFileUpload={onContainerDataParsed}/>
             </div>
         </div>
     );

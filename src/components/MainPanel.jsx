@@ -3,11 +3,14 @@ import AnalysisResultPanel from './AnalysisResultPanel';
 import MapPanel from './MapPanel';
 import TimeLinePanel from './TimeLinePanel';
 
-function MainPanel() {
+function MainPanel({ vesselData, containerData }) {
     return (
         <>
             <div className="map-panel">
-                <MapPanel />
+                <MapPanel 
+                    vesselData={vesselData}
+                    containerData={containerData}
+                />
             </div>
 
             <div className="timeline-panel">

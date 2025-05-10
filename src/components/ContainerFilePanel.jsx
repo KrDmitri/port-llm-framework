@@ -19,32 +19,32 @@ export default function ContainerFilePanel({ onFileUpload }) {
 
   return (
     <div
-      className="vfp-container"
+      className="cfp-container"
       style={{ width: '100%', display: 'grid', gridTemplateRows: 'auto 1fr', height: '100%' }}
     >
-      <div className="vfp-header">
-        <h3 className="vfp-title">Container File Upload</h3>
+      <div className="cfp-header">
+        <h3 className="cfp-title">Container File Upload</h3>
       </div>
       <div
-        className="vfp-body"
+        className="cfp-body"
         style={{ display: 'grid', placeItems: 'center', gridAutoFlow: 'column', gap: '8px' }}
       >
         <input
-          id="vfp-input"
+          id="cfp-input"
           type="file"
           accept="*"
           onChange={handleChange}
-          className="vfp-input"
+          className="cfp-input"
         />
         <label
-          htmlFor="vfp-input"
-          className={`vfp-label ${file ? 'has-file' : ''}`}
+          htmlFor="cfp-input"
+          className={`cfp-label ${file ? 'has-file' : ''}`}
         >
           {file ? file.name : 'Upload container file'}
         </label>
         {file && (
           <button
-            className="vfp-clear"
+            className="cfp-clear"
             onClick={clearFile}
             aria-label="Clear container file"
           >

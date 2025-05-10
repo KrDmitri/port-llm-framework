@@ -36,8 +36,8 @@ const bounds = [
 
 const colors = ['#4A90E2', '#50E3C2', '#F5A623'];
 
-function MapPanel({ vesselData, containerData }) {
-  // console.log('MapPanel - vesselData:', vesselData);
+function MapPanel({ vesselData, containerData, selectedDate }) {
+  // console.log('MapPanel - selectedDate:', selectedDate);
 
   const [dockData, setDockData] = useState({});
   const [csvRows, setCsvRows] = useState([]);
@@ -99,7 +99,7 @@ function MapPanel({ vesselData, containerData }) {
     }
   }, [vesselData]);
 
-  console.log('vesselData:', vesselData);
+  // console.log('vesselData:', vesselData);
 
   const aggregated = useMemo(() => {
     return csvRows.reduce((acc, row) => {
@@ -115,11 +115,11 @@ function MapPanel({ vesselData, containerData }) {
     }, {});
   }, [csvRows]);
 
-  console.log('Aggregated Data:', JSON.stringify(aggregated, null, 2));
+  // console.log('Aggregated Data:', JSON.stringify(aggregated, null, 2));
 
   for (const key in aggregated) {
-    console.log(`Key: ${key}`);
-    console.log('Value:', aggregated[key]);
+    // console.log(`Key: ${key}`);
+    // console.log('Value:', aggregated[key]);
     if (key === '020') {
       locations[1].tons = aggregated[key];
     } else if (key === '021') {
@@ -156,10 +156,14 @@ function MapPanel({ vesselData, containerData }) {
         {locations.map((loc, idx) => {
 
 
-          if (!isEmpty) {
-            // 2023년 9월 총톤수
-            // const ton = aggregated?.[loc.code]?.['2023']?.['09'] ?? 0;
-            const ton = loc.tons["2023"]["09"];
+          if (!isEmpty && selectedDate) {
+
+            const yearKey = String(selectedDate.year);
+            const monthKey = String(selectedDate.month).padStart(2, '0');
+            const ton = loc.tons?.[yearKey]?.[monthKey] ?? 0;
+
+            // console.log('Selected Date:', selectedDate);
+            // const ton = loc.tons["2023"]["09"];
 
             // 백만 단위로 스케일링
             const tonInMillions = ton / 5000;
@@ -167,7 +171,7 @@ function MapPanel({ vesselData, containerData }) {
               // √(백만톤 단위) * 4, 최소 4px
               ? Math.max(4, Math.sqrt(tonInMillions) * 4)
               : 4;
-            
+
             const fillColor = colors[idx % colors.length];
 
             // aggregated 데이터가 있으면 CircleMarker

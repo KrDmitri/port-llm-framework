@@ -3,7 +3,8 @@ import AnalysisResultPanel from './AnalysisResultPanel';
 import MapPanel from './MapPanel';
 import TimeLinePanel from './TimeLinePanel';
 
-function MainPanel({ vesselData, containerData, selectedDate, onDateSelect }) {
+function MainPanel({ vesselData, containerData, selectedDate, onDateSelect, onPortClick, selectedPortCode }) {
+    
     return (
         <>
             <div className="map-panel">
@@ -11,6 +12,8 @@ function MainPanel({ vesselData, containerData, selectedDate, onDateSelect }) {
                     vesselData={vesselData}
                     containerData={containerData}
                     selectedDate={selectedDate}
+                    onPortClick={onPortClick}
+                    selectedPortCode={selectedPortCode}
                 />
             </div>
 
@@ -24,7 +27,12 @@ function MainPanel({ vesselData, containerData, selectedDate, onDateSelect }) {
             </div>
 
             <div className="analysis-result-panel">
-                <AnalysisResultPanel />
+                <AnalysisResultPanel 
+                    vesselData={vesselData}
+                    containerData={containerData}
+                    selectedDate={selectedDate}
+                    selectedPortCode={selectedPortCode}
+                />
             </div>
         </>
     );

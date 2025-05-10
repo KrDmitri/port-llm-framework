@@ -10,6 +10,7 @@ function App() {
   const [vesselCsvData, setVesselCsvData] = useState(null);
   const [containerCsvData, setContainerCsvData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedPortCode, setSelectedPortCode] = useState(null);
 
   const handleDateSelect = (date) => {
     setSelectedDate({
@@ -19,6 +20,8 @@ function App() {
     });
     // console.log(`선택된 날짜: ${date.getFullYear()}년 ${date.getMonth() + 1}월`);
   };
+
+  console.log('portCode:', selectedPortCode);
   
 
 
@@ -34,6 +37,8 @@ function App() {
           containerData={containerCsvData}
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
+          onPortClick={setSelectedPortCode}
+          selectedPortCode={selectedPortCode}
         />
       </div>
 

@@ -23,9 +23,9 @@ L.Icon.Default.mergeOptions({
 
 // 포트 위치 데이터
 const locations = [
-  { name: '감천항', position: [35.0832, 128.9982] },
-  { name: '부산북항', position: [35.1033, 129.0426] },
-  { name: '부산신항', position: [35.0773, 128.8331] },
+  { name: '감천항', code: '021', position: [35.0832, 128.9982] },
+  { name: '부산북항', code: '020', position: [35.1033, 129.0426] },
+  { name: '부산신항', code: '022', position: [35.0773, 128.8331] },
 ];
 
 // Bounds: [[minLat, minLng], [maxLat, maxLng]]
@@ -36,7 +36,7 @@ const bounds = [
 
 const colors = ['#4A90E2', '#50E3C2', '#F5A623'];
 
-function MapPanel({ vesselData, containerData, selectedDate }) {
+function MapPanel({ vesselData, containerData, selectedDate, onPortClick, selectedPortCode }) {
   // console.log('MapPanel - selectedDate:', selectedDate);
 
   const [dockData, setDockData] = useState({});
@@ -133,73 +133,60 @@ function MapPanel({ vesselData, containerData, selectedDate }) {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <MapContainer
-        bounds={bounds}
-        style={{ height: '100%', width: '100%' }}
-        scrollWheelZoom={true}
-      >
+      <MapContainer bounds={bounds} style={{ height: '100%', width: '100%' }} scrollWheelZoom>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a> contributors'
+          attribution='&copy; CARTO contributors'
         />
 
-        {/* {locations.map((loc, idx) => (
-          <Marker key={idx} position={loc.position}>
-            {Object.keys(aggregated).length !== 0 ? (
-              <Popup>{loc.tons["2023"]["09"]}</Popup>
-            ) : (
-              <Popup>{loc.name}</Popup>
-            )}
-          </Marker>
-        ))} */}
-
         {locations.map((loc, idx) => {
+          // 날짜 필터링 후 ton 계산(생략)…
+          // radius, fillColor 계산(생략)…
 
+          // 클릭 이벤트 핸들러
+          const handlers = {
+            click: () => onPortClick(loc.code),
+          };
 
+          // 데이터 있을 때 CircleMarker
           if (!isEmpty && selectedDate) {
-
-            const yearKey = String(selectedDate.year);
-            const monthKey = String(selectedDate.month).padStart(2, '0');
-            const ton = loc.tons?.[yearKey]?.[monthKey] ?? 0;
-
-            // console.log('Selected Date:', selectedDate);
-            // const ton = loc.tons["2023"]["09"];
-
-            // 백만 단위로 스케일링
-            const tonInMillions = ton / 5000;
+            // ton, radius, fillColor 계산했다고 가정
+            const year = String(selectedDate.year);
+            const month = String(selectedDate.month).padStart(2, '0');
+            const ton = loc.tons?.[year]?.[month] || 0;
             const radius = ton > 0
-              // √(백만톤 단위) * 4, 최소 4px
-              ? Math.max(4, Math.sqrt(tonInMillions) * 4)
+              ? Math.max(4, Math.sqrt(ton / 5000) * 4)
               : 4;
-
             const fillColor = colors[idx % colors.length];
 
-            // aggregated 데이터가 있으면 CircleMarker
             return (
               <CircleMarker
-                key={idx}
+                key={loc.code}
                 center={loc.position}
                 radius={radius}
                 fillColor={fillColor}
                 fillOpacity={0.6}
                 stroke={false}
+                eventHandlers={handlers}       // ← 클릭 시 코드 전달
               >
                 <Popup>
                   {`${loc.name} — ${selectedDate.year}년 ${selectedDate.month}월: ${ton}톤`}
                 </Popup>
               </CircleMarker>
             );
-          } else {
-            // 데이터가 없으면 기본 Marker
-            return (
-              <Marker key={idx} position={loc.position}>
-                <Popup>{loc.name}</Popup>
-              </Marker>
-            );
           }
+
+          // 데이터 없을 때 일반 Marker
+          return (
+            <Marker
+              key={loc.code}
+              position={loc.position}
+              eventHandlers={handlers}         // ← 클릭 시 코드 전달
+            >
+              <Popup>{loc.name}</Popup>
+            </Marker>
+          );
         })}
-
-
       </MapContainer>
     </div>
   );

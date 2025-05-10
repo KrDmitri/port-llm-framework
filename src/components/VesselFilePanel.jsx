@@ -34,7 +34,7 @@ export default function VesselFilePanel({ onFileUpload }) {
           htmlFor="vfp-input"
           className={`vfp-label ${file ? 'has-file' : ''}`}
         >
-          {file ? file.name : 'Upload file'}
+          {file ? file.name : 'Upload vessel file'}
         </label>
         {file && (
           <button

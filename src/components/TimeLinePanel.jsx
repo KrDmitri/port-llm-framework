@@ -12,8 +12,8 @@ import React, { useState, useRef, useEffect } from 'react';
  *  - end: Date (타임라인 끝 날짜, 기본 올해 12월 1일)
  */
 function TimeLinePanel({
-  start = new Date(new Date().getFullYear() - 2, 0, 1),
-  end = new Date(new Date().getFullYear(), 11, 1),
+  start = new Date(new Date().getFullYear() - 3, 0, 1),
+  end = new Date(new Date().getFullYear() - 2, 11, 1),
 }) {
   const containerRef = useRef(null);
   const [offsetX, setOffsetX] = useState(0);

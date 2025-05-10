@@ -3,31 +3,29 @@ import './App.css'
 import SidePanel from './components/SidePanel'
 import MainPanel from './components/MainPanel'
 import ChatbotPanel from './components/ChatbotPanel'
-import VesselFilePanel from './components/VesselFilePanel'
-import ContainerFilePanel from './components/ContainerFilePanel'
+import { useState } from 'react';
 
 function App() {
+
+  const [vesselCsvData, setVesselCsvData] = useState(null);
+  const [containerCsvData, setContainerCsvData] = useState(null);
 
   return (
     <div className="app-container">
       <div className="side-panel">
-        <SidePanel />
+        <SidePanel onVesselDataParsed={setVesselCsvData} onContainerDataParsed={setContainerCsvData}/>
       </div>
 
       <div className="main-panel">
-        <MainPanel />
+        <MainPanel 
+          vesselData={vesselCsvData}
+          containerData={containerCsvData}
+        />
       </div>
 
       <div className="chatbot-panel">
         <ChatbotPanel />
       </div>
-
-      {/* <div className='container'>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div> */}
       
     </div>
 

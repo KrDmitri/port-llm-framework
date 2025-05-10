@@ -3,20 +3,26 @@ import AnalysisResultPanel from './AnalysisResultPanel';
 import MapPanel from './MapPanel';
 import TimeLinePanel from './TimeLinePanel';
 
-function MainPanel({ vesselData, containerData }) {
+function MainPanel({ vesselData, containerData, selectedDate, onDateSelect }) {
     return (
         <>
             <div className="map-panel">
-                <MapPanel 
+                <MapPanel
                     vesselData={vesselData}
                     containerData={containerData}
+                    selectedDate={selectedDate}
                 />
             </div>
 
             <div className="timeline-panel">
-                <TimeLinePanel />
+                <TimeLinePanel
+                    start={new Date(2022, 0, 1)}
+                    end={new Date(2023, 11, 1)}
+                    onDateSelect={onDateSelect}
+                    selectedDate={selectedDate}
+                />
             </div>
-            
+
             <div className="analysis-result-panel">
                 <AnalysisResultPanel />
             </div>

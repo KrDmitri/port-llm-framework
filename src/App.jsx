@@ -9,6 +9,18 @@ function App() {
 
   const [vesselCsvData, setVesselCsvData] = useState(null);
   const [containerCsvData, setContainerCsvData] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateSelect = (date) => {
+    setSelectedDate({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      fullDate: date
+    });
+    // console.log(`선택된 날짜: ${date.getFullYear()}년 ${date.getMonth() + 1}월`);
+  };
+  
+
 
   return (
     <div className="app-container">
@@ -20,6 +32,8 @@ function App() {
         <MainPanel 
           vesselData={vesselCsvData}
           containerData={containerCsvData}
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
         />
       </div>
 

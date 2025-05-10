@@ -5,9 +5,14 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import Papa from 'papaparse/papaparse.js';
+import { useEffect, useState } from 'react';
+
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+const CSV_URL = '/dock_code.csv';
 
 // Fix default marker icon paths
 delete L.Icon.Default.prototype._getIconUrl;
@@ -31,6 +36,36 @@ const bounds = [
 ];
 
 function MapPanel() {
+    const [dockData, setDockData] = useState({});
+
+    useEffect(() => {
+        fetch(CSV_URL)
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.text();
+          })
+          .then((csvText) => {
+            // Papa.parse로 CSV 파싱
+            Papa.parse(csvText, {
+              header: true,
+              skipEmptyLines: true,
+              complete: (results) => {
+                const data = {};
+                results.data.forEach((row) => {
+                  const { PRT_AT_CODE, FAC_CODE, FAC_CODE_NM } = row;
+                  if (!data[PRT_AT_CODE]) data[PRT_AT_CODE] = {};
+                  // FAC_CODE_NM에 공백이 있어도 문자열로 안전하게 파싱
+                  data[PRT_AT_CODE][FAC_CODE] = FAC_CODE_NM;
+                });
+                setDockData(data);
+                console.log('Dock Data:', data);
+              },
+              error: (err) => console.error('CSV parsing error:', err),
+            });
+          })
+          .catch((err) => console.error('Fetch error:', err));
+      }, []);
+
     return (
         <div style={{ height: '100%', width: '100%' }}>
             <MapContainer

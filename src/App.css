@@ -4,7 +4,7 @@
   /* border: 1px solid red; */
   display: grid;
   /* 여백:1 / Side 파일 2 / Main:6 / Chatbot:2 / 여백:1 */
-  grid-template-columns: 0.1fr 2fr 6fr 2fr 0.1fr;
+  grid-template-columns: 0.1fr 1fr 6fr 2fr 0.1fr;
   /* 위쪽에 Vessel, 아래쪽에 Container → 2개의 행을 1:1 비율로 */
   grid-template-rows: 1fr 1fr;
 

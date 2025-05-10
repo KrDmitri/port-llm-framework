@@ -31,8 +31,8 @@ const locations = [
 
 // Bounds: [[minLat, minLng], [maxLat, maxLng]]
 const bounds = [
-    [35.0455, 128.7696], // SW 코너
-    [35.1062, 129.0401], // NE 코너
+    [35.0055, 128.8696], // SW 코너
+    [35.1562, 129.0401], // NE 코너
 ];
 
 function MapPanel() {

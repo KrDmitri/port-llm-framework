@@ -23,9 +23,9 @@ L.Icon.Default.mergeOptions({
 
 // 포트 위치 데이터
 const locations = [
-  { name: '감천항 21(Gamcheon Port)', position: [35.0832, 128.9982] },
-  { name: '부산북항부두 20(Busan North Port / Busan Bukhang)', position: [35.1033, 129.0426] },
-  { name: '부산신항 22(Busan New Port / Busan Sinhang)', position: [35.0773, 128.8331] },
+  { name: '감천항', position: [35.0832, 128.9982] },
+  { name: '부산북항', position: [35.1033, 129.0426] },
+  { name: '부산신항', position: [35.0773, 128.8331] },
 ];
 
 // Bounds: [[minLat, minLng], [maxLat, maxLng]]
@@ -185,7 +185,7 @@ function MapPanel({ vesselData, containerData, selectedDate }) {
                 stroke={false}
               >
                 <Popup>
-                  {`${loc.name} — 2023년 09월: ${ton}톤`}
+                  {`${loc.name} — ${selectedDate.year}년 ${selectedDate.month}월: ${ton}톤`}
                 </Popup>
               </CircleMarker>
             );

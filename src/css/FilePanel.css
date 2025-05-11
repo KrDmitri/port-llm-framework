@@ -1,96 +1,97 @@
 .vfp-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .vfp-input {
-    display: none;
-  }
-  
-  .vfp-label {
-    padding: 8px 16px;
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #fafafa;
-    transition: border-color 0.2s, background-color 0.2s;
-    color: #555;
-  }
-  
-  .vfp-label:hover {
-    border-color: #888;
-    background-color: #f0f0f0;
-  }
-  
-  .vfp-label.has-file {
-    border-style: solid;
-  }
-  
-  .vfp-clear {
-    background: none;
-    border: none;
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .vfp-clear:hover {
-    color: #555;
-  }
-  
-  .vfp-header {
-    padding: 8px 16px;
-    border-bottom: 1px solid #eee;
-  }
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vfp-input {
+  display: none;
+}
+
+.vfp-label {
+  padding: 8px 16px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fafafa;
+  transition: border-color 0.2s, background-color 0.2s;
+  color: #555;
+}
+
+.vfp-label:hover {
+  border-color: #888;
+  background-color: #f0f0f0;
+}
+
+.vfp-label.has-file {
+  border-style: solid;
+}
+
+.vfp-clear {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+}
+
+.vfp-clear:hover {
+  color: #555;
+}
+
+.vfp-header {
+  padding: 8px 16px;
+  border-bottom: 1px solid #eee;
+}
 
 
 
-  .cfp-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .cfp-input {
-    display: none;
-  }
-  
-  .cfp-label {
-    padding: 8px 16px;
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #fafafa;
-    transition: border-color 0.2s, background-color 0.2s;
-    color: #555;
-  }
-  
-  .cfp-label:hover {
-    border-color: #888;
-    background-color: #f0f0f0;
-  }
-  
-  .cfp-label.has-file {
-    border-style: solid;
-  }
-  
-  .cfp-clear {
-    background: none;
-    border: none;
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .cfp-clear:hover {
-    color: #555;
-  }
-  
-  .cfp-header {
-    padding: 8px 16px;
-    border-bottom: 1px solid #eee;
-  }
-  
+.cfp-container {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cfp-input {
+  display: none;
+}
+
+.cfp-label {
+  padding: 8px 16px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fafafa;
+  transition: border-color 0.2s, background-color 0.2s;
+  color: #555;
+}
+
+.cfp-label:hover {
+  border-color: #888;
+  background-color: #f0f0f0;
+}
+
+.cfp-label.has-file {
+  border-style: solid;
+}
+
+.cfp-clear {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+}
+
+.cfp-clear:hover {
+  color: #555;
+}
+
+.cfp-header {
+  padding: 8px 16px;
+  border-bottom: 1px solid #eee;
+}

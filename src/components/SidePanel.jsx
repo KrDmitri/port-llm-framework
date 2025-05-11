@@ -4,15 +4,17 @@ import ContainerFilePanel from './ContainerFilePanel';
 
 function SidePanel({ onVesselDataParsed, onContainerDataParsed }) {
     return (
-        <div>
-            <div className='vessel-file-panel'>
+        <>
+            <VesselFilePanel onFileUpload={onVesselDataParsed}/>
+            <ContainerFilePanel onFileUpload={onContainerDataParsed}/>
+            {/* <div className='vessel-file-panel'>
                 <VesselFilePanel onFileUpload={onVesselDataParsed}/>
             </div>
 
             <div className='container-file-panel'>
                 <ContainerFilePanel onFileUpload={onContainerDataParsed}/>
-            </div>
-        </div>
+            </div> */}
+        </>
     );
 }
 

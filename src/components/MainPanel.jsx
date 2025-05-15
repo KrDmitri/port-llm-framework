@@ -3,7 +3,7 @@ import AnalysisResultPanel from './AnalysisResultPanel';
 import MapPanel from './MapPanel';
 import TimeLinePanel from './TimeLinePanel';
 
-function MainPanel({ vesselData, containerData, selectedDate, onDateSelect, onPortClick, selectedPortCode }) {
+function MainPanel({ vesselData, containerData, selectedDate, onDateSelect, onPortClick, selectedPortCode, generatedCode }) {
     
     return (
         <>
@@ -32,6 +32,7 @@ function MainPanel({ vesselData, containerData, selectedDate, onDateSelect, onPo
                     containerData={containerData}
                     selectedDate={selectedDate}
                     selectedPortCode={selectedPortCode}
+                    generatedCode={generatedCode}
                 />
             </div>
         </>

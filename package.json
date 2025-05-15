@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/standalone": "^7.27.2",
     "leaflet": "^1.9.4",
     "papaparse": "^5.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-jsx-parser": "^2.4.0",
     "react-leaflet": "^5.0.0",
     "recharts": "^2.15.3"
   },

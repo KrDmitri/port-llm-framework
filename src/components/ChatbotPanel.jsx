@@ -1,76 +1,7 @@
-// import React, { useState, useEffect, useRef } from 'react';
-// import '../css/ChatbotPanel.css';
-
-// function ChatbotPanel() {
-//   // 항상 빈 배열로 시작
-//   const [messages, setMessages] = useState([]);
-//   const [input, setInput] = useState('');
-//   const messagesEndRef = useRef(null);
-
-//   // 자동 스크롤
-//   useEffect(() => {
-//     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-//   }, [messages]);
-
-//   const handleInputChange = e => {
-//     setInput(e.target.value);
-//   };
-
-//   const handleSendMessage = () => {
-//     if (!input.trim()) return;
-
-//     // 유저 메시지 추가
-//     setMessages(prev => [
-//       ...prev,
-//       { user: 'user', text: input }
-//     ]);
-//     setInput('');
-
-//     // GPT 응답 시뮬레이션
-//     setTimeout(() => {
-//       setMessages(prev => [
-//         ...prev,
-//         { user: 'gpt', text: input }
-//       ]);
-//     }, 500);
-//   };
-
-//   const handleSubmit = e => {
-//     e.preventDefault();       // form 기본 동작 막기
-//     handleSendMessage();      // 메시지 전송
-//   };
-
-//   return (
-//     <div className="chatbot-panel">
-//       <div className="chatbot-messages">
-//         {messages.map((msg, i) => (
-//           <div key={i} className={`message ${msg.user}`}>
-//             <span className="bubble">{msg.text}</span>
-//           </div>
-//         ))}
-//         <div ref={messagesEndRef} />
-//       </div>
-
-//       <form className="chatbot-input" onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           value={input}
-//           onChange={handleInputChange}
-//           placeholder="Type your message..."
-//         />
-//         <button type="submit">Send</button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default ChatbotPanel;
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/ChatbotPanel.css';
 
-function ChatbotPanel() {
+function ChatbotPanel({onNewCode}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -104,8 +35,13 @@ function ChatbotPanel() {
       }
 
       const data = await response.json();
+
+      const textResponse = data.answer.text;
+      const reactCodeResponse = data.answer.react;
+      
       // GPT 응답 추가
-      setMessages(prev => [...prev, { user: 'gpt', text: data.answer }]);
+      setMessages(prev => [...prev, { user: 'gpt', text: textResponse }]);
+      if (onNewCode) onNewCode(reactCodeResponse);
     } catch (error) {
       console.error('Error fetching chat response:', error);
       setMessages(prev => [

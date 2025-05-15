@@ -11,6 +11,7 @@ function App() {
   const [containerCsvData, setContainerCsvData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedPortCode, setSelectedPortCode] = useState(null);
+  const [generatedCode, setGeneratedCode] = useState(null);
 
   const handleDateSelect = (date) => {
     setSelectedDate({
@@ -21,7 +22,7 @@ function App() {
     // console.log(`선택된 날짜: ${date.getFullYear()}년 ${date.getMonth() + 1}월`);
   };
 
-  console.log('portCode:', selectedPortCode);
+  // console.log('portCode:', selectedPortCode);
   
 
 
@@ -39,11 +40,12 @@ function App() {
           onDateSelect={handleDateSelect}
           onPortClick={setSelectedPortCode}
           selectedPortCode={selectedPortCode}
+          generatedCode={generatedCode}
         />
       </div>
 
       <div className="chatbot-panel">
-        <ChatbotPanel />
+        <ChatbotPanel onNewCode={setGeneratedCode}/>
       </div>
       
     </div>

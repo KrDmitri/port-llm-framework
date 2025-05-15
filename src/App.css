@@ -55,6 +55,7 @@
   display: grid;
   grid-template-rows: 5fr 0.6fr 3fr;  
   height: 100%;
+  width: 100%;
   min-height: 0;
   gap: 8px;
 }
@@ -91,6 +92,9 @@
   border: 1px solid black;
   box-sizing: border-box;
   overflow: auto;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
 }
 
 

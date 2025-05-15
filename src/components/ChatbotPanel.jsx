@@ -2,96 +2,78 @@
 // import '../css/ChatbotPanel.css';
 
 // function ChatbotPanel() {
-//     const [messages, setMessages] = useState(() => {
-//         const saved = localStorage.getItem('chatMessages');
-//         return saved ? JSON.parse(saved) : [];
-//     });
-//     const [input, setInput] = useState('');
-//     const messagesEndRef = useRef(null);
+//   // 항상 빈 배열로 시작
+//   const [messages, setMessages] = useState([]);
+//   const [input, setInput] = useState('');
+//   const messagesEndRef = useRef(null);
 
-//     // 1. 저장된 메시지 불러오기
-//     useEffect(() => {
-//         const savedMessages = localStorage.getItem('chatMessages');
-//         if (savedMessages) {
-//             setMessages(JSON.parse(savedMessages));
-//         }
-//     }, []);
+//   // 자동 스크롤
+//   useEffect(() => {
+//     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+//   }, [messages]);
 
-//     // 2. 메시지 변경 시 저장
-//     useEffect(() => {
-//         localStorage.setItem('chatMessages', JSON.stringify(messages));
-//     }, [messages]);
+//   const handleInputChange = e => {
+//     setInput(e.target.value);
+//   };
 
-//     // 3. 자동 스크롤
-//     useEffect(() => {
-//         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-//     }, [messages]);
+//   const handleSendMessage = () => {
+//     if (!input.trim()) return;
 
-//     const handleInputChange = (e) => {
-//         setInput(e.target.value);
-//     };
+//     // 유저 메시지 추가
+//     setMessages(prev => [
+//       ...prev,
+//       { user: 'user', text: input }
+//     ]);
+//     setInput('');
 
-//     const handleSendMessage = () => {
-//         if (!input.trim()) return;
+//     // GPT 응답 시뮬레이션
+//     setTimeout(() => {
+//       setMessages(prev => [
+//         ...prev,
+//         { user: 'gpt', text: input }
+//       ]);
+//     }, 500);
+//   };
 
-//         const newMessages = [...messages, { user: 'user', text: input }];
-//         setMessages(newMessages);
-//         setInput('');
+//   const handleSubmit = e => {
+//     e.preventDefault();       // form 기본 동작 막기
+//     handleSendMessage();      // 메시지 전송
+//   };
 
-//         // GPT 응답 시뮬레이션
-//         setTimeout(() => {
-//             setMessages(prev => [
-//                 ...prev,
-//                 { user: 'gpt', text: input }
-//             ]);
-//         }, 500);
-//     };
+//   return (
+//     <div className="chatbot-panel">
+//       <div className="chatbot-messages">
+//         {messages.map((msg, i) => (
+//           <div key={i} className={`message ${msg.user}`}>
+//             <span className="bubble">{msg.text}</span>
+//           </div>
+//         ))}
+//         <div ref={messagesEndRef} />
+//       </div>
 
-//     const handleKeyDown = (e) => {
-//         if (e.key === 'Enter') {
-//             handleSendMessage();
-//         }
-//     };
-
-//     const handleSubmit = e => {
-//         e.preventDefault();
-//         handleSendMessage();
-//     };
-
-//     return (
-//         <div className="chatbot-panel">
-//             <div className="chatbot-messages">
-//                 {messages.map((msg, index) => (
-//                     <div key={index} className={`message ${msg.user}`}>
-//                         <span className="bubble">{msg.text}</span>
-//                     </div>
-//                 ))}
-//                 <div ref={messagesEndRef} />
-//             </div>
-//             <form className="chatbot-input" onSubmit={handleSubmit}>
-//                 <input
-//                     type="text"
-//                     value={input}
-//                     onChange={handleInputChange}
-//                     placeholder="Type your message..."
-//                 />
-//                 <button type="submit">Send</button>
-//             </form>
-//         </div>
-//     );
+//       <form className="chatbot-input" onSubmit={handleSubmit}>
+//         <input
+//           type="text"
+//           value={input}
+//           onChange={handleInputChange}
+//           placeholder="Type your message..."
+//         />
+//         <button type="submit">Send</button>
+//       </form>
+//     </div>
+//   );
 // }
 
 // export default ChatbotPanel;
-
 
 
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/ChatbotPanel.css';
 
 function ChatbotPanel() {
-  // 항상 빈 배열로 시작
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   // 자동 스크롤
@@ -99,32 +81,45 @@ function ChatbotPanel() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleInputChange = e => {
-    setInput(e.target.value);
-  };
-
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!input.trim()) return;
 
+    const userMessage = input;
     // 유저 메시지 추가
-    setMessages(prev => [
-      ...prev,
-      { user: 'user', text: input }
-    ]);
+    setMessages(prev => [...prev, { user: 'user', text: userMessage }]);
     setInput('');
+    setLoading(true);
 
-    // GPT 응답 시뮬레이션
-    setTimeout(() => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/chatbot/get-answer/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: userMessage }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      // GPT 응답 추가
+      setMessages(prev => [...prev, { user: 'gpt', text: data.answer }]);
+    } catch (error) {
+      console.error('Error fetching chat response:', error);
       setMessages(prev => [
         ...prev,
-        { user: 'gpt', text: input }
+        { user: 'gpt', text: '죄송합니다. 응답을 불러오는데 실패했습니다.' },
       ]);
-    }, 500);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = e => {
-    e.preventDefault();       // form 기본 동작 막기
-    handleSendMessage();      // 메시지 전송
+    e.preventDefault();
+    handleSendMessage();
   };
 
   return (
@@ -135,6 +130,11 @@ function ChatbotPanel() {
             <span className="bubble">{msg.text}</span>
           </div>
         ))}
+        {/* {loading && (
+          <div className="message gpt">
+            <span className="bubble">응답을 기다리는 중...</span>
+          </div>
+        )} */}
         <div ref={messagesEndRef} />
       </div>
 
@@ -142,10 +142,13 @@ function ChatbotPanel() {
         <input
           type="text"
           value={input}
-          onChange={handleInputChange}
+          onChange={e => setInput(e.target.value)}
           placeholder="Type your message..."
+          disabled={loading}
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={loading || !input.trim()}>
+          {loading ? 'Sending...' : 'Send'}
+        </button>
       </form>
     </div>
   );

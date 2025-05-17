@@ -38,6 +38,7 @@ function ChatbotPanel({onNewCode}) {
 
       const textResponse = data.answer.text;
       const reactCodeResponse = data.answer.react;
+      // console.log('React Code:', reactCodeResponse);
       
       // GPT 응답 추가
       setMessages(prev => [...prev, { user: 'gpt', text: textResponse }]);

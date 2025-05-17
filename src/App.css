@@ -1,12 +1,13 @@
 /* App.css */
 
+
 .app-container {
   /* border: 1px solid red; */
   display: grid;
   /* 여백:1 / Side 파일 2 / Main:6 / Chatbot:2 / 여백:1 */
-  grid-template-columns: 0.1fr 1fr 6fr 2fr 0.1fr;
+  grid-template-columns: 0.1fr 1fr 4fr 2fr 2fr 0.1fr;
   /* 위쪽에 Vessel, 아래쪽에 Container → 2개의 행을 1:1 비율로 */
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.1fr 2fr 2fr;
 
   width: 100vw;
   height: 95vh;
@@ -15,10 +16,18 @@
   gap: 8px;
 }
 
+.header {
+  /* border: 1px solid green; */
+  grid-column: 1 / 7;
+  grid-row: 1 / 2;
+  text-align: left;
+  margin-left: 50px;
+}
+
 .side-panel {
   /* border: 5px solid pink; */
   grid-column: 2 / 3;
-  grid-row: 1 / 3;
+  grid-row: 2 / 4;
 
   display: grid;
   grid-template-rows: 1fr 1fr; /* 동일한 비율 유지 */
@@ -50,7 +59,7 @@
 .main-panel {
   /* border: 1px solid blue; */
   grid-column: 3 / 4;
-  grid-row: 1 / 3;
+  grid-row: 2 / 4;
   
   display: grid;
   grid-template-rows: 5fr 0.6fr 3fr;  
@@ -59,19 +68,6 @@
   min-height: 0;
   gap: 8px;
 }
-
-
-/* .map-panel,
-.timeline-panel,
-.analysis-result-panel {
-  border: 1px solid black;
-  box-sizing: border-box;
-  overflow: auto;
-  
-  height: 100%;    
-  min-height: 0;
-  
-} */
 
 .map-panel {
   grid-row: 1 / 2;
@@ -97,19 +93,40 @@
   min-height: 0;
 }
 
+.llm-generated-panel {
+  grid-column: 4 / 5;
+  grid-row: 2 / 4;
+  /* border: 1px solid black; */
 
+  display: grid;
+  grid-template-rows: 4.9fr 3.6fr;  
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  gap: 8px;
+}
 
+.history-panel {
+  grid-row: 1/2;
+  border: 1px solid black;
+  box-sizing: border-box;
+  overflow: auto;
+}
 
-
-
+.llm-result-panel {
+  grid-row: 2/3;
+  border: 1px solid black;
+  box-sizing: border-box;
+  overflow: auto;
+}
 
 
 
 
 /* Chatbot 패널: 두 행 모두 차지 */
 .chatbot-panel {
-  grid-column: 4 / 5;
-  grid-row: 1 / 3;
+  grid-column: 5 / 6;
+  grid-row: 2 / 4;
   border: 1px solid black;
   box-sizing: border-box;
   overflow: auto;

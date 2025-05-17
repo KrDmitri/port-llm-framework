@@ -44,7 +44,7 @@ export default function VesselFilePanel({ onFileUpload }) {
       }}
     >
       <div className="vfp-header">
-        <h2 className="vfp-title">Vessel File Upload</h2>
+        <h3 className="vfp-title">Vessel File Upload</h3>
       </div>
   
       {/* body + columns 를 함께 묶어서 세로 가운데 정렬 */}

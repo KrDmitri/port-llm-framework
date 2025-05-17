@@ -4,6 +4,7 @@ import SidePanel from './components/SidePanel'
 import MainPanel from './components/MainPanel'
 import ChatbotPanel from './components/ChatbotPanel'
 import { useState } from 'react';
+import LlmGeneratedPanel from './components/LlmGeneratedPanel'
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
 
   return (
     <div className="app-container">
+      <div className="header">
+        <h2>HAIV PORTAL</h2>
+      </div>
       <div className="side-panel">
         <SidePanel onVesselDataParsed={setVesselCsvData} onContainerDataParsed={setContainerCsvData}/>
       </div>
@@ -41,6 +45,15 @@ function App() {
           onPortClick={setSelectedPortCode}
           selectedPortCode={selectedPortCode}
           generatedCode={generatedCode}
+        />
+      </div>
+
+      <div className="llm-generated-panel">
+        <LlmGeneratedPanel 
+          generatedCode={generatedCode}
+          vesselData={vesselCsvData}
+          selectedDate={selectedDate}
+          selectedPortCode={selectedPortCode}
         />
       </div>
 
